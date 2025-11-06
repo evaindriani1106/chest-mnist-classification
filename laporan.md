@@ -1,36 +1,44 @@
-# Laporan Eksperimen Klasifikasi Chest X-Ray
+# Laporan Eksperimen Klasifikasi Chest X-Ray Menggunakan Deep Learning
 
 **Nama:** Eva Indriani  
 **NIM:** 122430001  
 **Program Studi:** Teknik Biomedis  
-**Mata Kuliah:** Kecerdasan Buatan  
+**Mata Kuliah:** Kecerdasan Buatan
 
-## 1. Dataset dan Preprocessing (`datareader.py`)
+## 1. Ringkasan Eksperimen
 
-### 1.1 Dataset
-- **Sumber**: ChestMNIST dari MedMNIST
-- **Kelas yang Digunakan**: 
-  - Cardiomegaly (Label 0)
-  - Pneumothorax (Label 1)
-- **Distribusi Data**:
-  ```
-  Training Set:
-  - Cardiomegaly: 754 sampel
-  - Pneumothorax: 1552 sampel
-  Total: 2306 sampel
+Proyek ini bertujuan mengklasifikasikan citra X-Ray dada untuk mendeteksi dua kondisi medis:
+- Cardiomegaly (pembesaran jantung)
+- Pneumothorax (kebocoran udara di sekitar paru-paru)
 
-  Validation Set:
-  - Cardiomegaly: 243 sampel
-  - Pneumothorax: 439 sampel
-  Total: 682 sampel
-  ```
+### 1.1 Dataset (`datareader.py`)
 
-### 1.2 Preprocessing
-- **Transformasi**:
-  - Konversi ke Tensor
-  - Normalisasi (mean=0.5, std=0.5)
-- **Filtering**: Hanya menggunakan sampel dengan label tunggal (single-label)
-- **Data Loading**: Batch size 64 dengan shuffle pada training set
+#### Sumber Data
+- Dataset: ChestMNIST dari MedMNIST
+- Ukuran gambar: 28x28 piksel, grayscale (1 channel)
+
+#### Distribusi Data
+```
+Training Set:
+- Cardiomegaly: 754 sampel
+- Pneumothorax: 1552 sampel
+Total: 2306 sampel
+
+Validation Set:
+- Cardiomegaly: 243 sampel
+- Pneumothorax: 439 sampel
+Total: 682 sampel
+```
+
+#### Preprocessing
+1. **Filtering**:
+   - Hanya menggunakan sampel dengan label tunggal
+   - Konversi ke klasifikasi biner (Cardiomegaly=0, Pneumothorax=1)
+
+2. **Transformasi**:
+   - Konversi ke PyTorch tensor
+   - Normalisasi (mean=0.5, std=0.5)
+   - Data augmentation minimal untuk preservasi informasi diagnostik
 
 ## 2. Arsitektur Model (`model.py`)
 
